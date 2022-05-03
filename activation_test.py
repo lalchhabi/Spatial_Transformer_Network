@@ -1,4 +1,3 @@
-
 """
 Simple script to show the activation maps
 for the STN and NailNet 
@@ -11,20 +10,19 @@ import os
 from packaging import version
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-import keras
+
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 import keract 
 from quiver_engine import server
 from model.stn_layers import BilinearInterpolation
-import train
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_dir', default='./test',
                     help="Directory containing the model")
 
-parser.add_argument('--image_dir', default="./result/test/raw_image/img_0000.jpg",
+parser.add_argument('--image_dir', default="./result/test/raw_image/img_0002.jpg",
                     help="log directory for the trained model")
 
 parser.add_argument('--mode', default='act_map', 
@@ -45,10 +43,9 @@ if __name__ == '__main__':
 
     tf.debugging.set_log_device_placement(False)
     best_save_path = os.path.join(args.model_dir, "best_full_model_path")
-    loaded_model = tf.saved_model.load(best_save_path)
+    loaded_model = tf.keras.models.load_model(best_save_path)
     # loaded_model.summary()
-    # tf.keras.models.load_model
-    # tf.saved_model.load
+
     img_path = args.image_dir
     raw_image_string = tf.io.read_file(img_path)
     raw_image = tf.image.decode_jpeg(raw_image_string, channels=3)

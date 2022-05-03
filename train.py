@@ -89,5 +89,4 @@ if __name__ == '__main__':
 
     best_final_path = os.path.join("./test", "best_full_model_path")
     model.save(best_final_path)
-    tf.saved_model.save(model, best_final_path)
     print("[INFO] Final model save in {}".format(best_final_path))
